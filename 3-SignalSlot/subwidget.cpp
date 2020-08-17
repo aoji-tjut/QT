@@ -16,9 +16,9 @@ SubWidget::SubWidget(QWidget* parent) : QWidget(parent)
 	b_close.move(350, 150);
 
 	//信号处理
-	//信号发出者 信号名 信号接收者 槽函数名
-	connect(b_main, &QPushButton::released, this, &SubWidget::SubToMain);
-	connect(&b_close, &QPushButton::released, this, &SubWidget::close);
+	//信号发送者 信号名 信号接收者 槽函数名
+	connect(b_main, &QPushButton::clicked, this, &SubWidget::SubToMain);
+	connect(&b_close, &QPushButton::clicked, this, &SubWidget::close);
 }
 
 //自定义槽函数

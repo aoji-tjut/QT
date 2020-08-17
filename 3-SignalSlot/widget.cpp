@@ -16,13 +16,21 @@ Widget::Widget(QWidget* parent)
 	b_close.resize(100, 50);
 	b_close.move(400, 150);
 
-	//信号处理
-	//信号发出者 信号名 信号接收者 槽函数名
-	connect(b_sub, &QPushButton::released, this, &Widget::MainToSub);
-	connect(&b_close, &QPushButton::released, this, &Widget::close);
-	//传参区分重载信号与槽函数 信号与槽函数参数要一一对应
-	connect(&sw, SIGNAL(Signal()), this, SLOT(DealSignal()));
-	connect(&sw, SIGNAL(Signal(QString)), this, SLOT(DealSignal(QString)));
+	//信号处理 信号可以连接槽函数也可以连接信号
+	//信号与槽函数参数类型要一一对应 参数个数可以信号>槽函数
+	//参数：信号发送者 信号名 信号接收者 槽函数名(信号名)
+	connect(b_sub, &QPushButton::clicked, this, &Widget::MainToSub);
+	connect(&b_close, &QPushButton::clicked, this, &Widget::close);
+	//传参区分重载信号与槽函数
+	void (SubWidget::*p_signal)() = &SubWidget::Signal;
+	void (SubWidget::*q_signal)(QString) = &SubWidget::Signal;
+	void (Widget::*p_slot)() = &Widget::Slot;
+	void (Widget::*q_slot)(QString) = &Widget::Slot;
+	connect(&sw, p_signal, this, p_slot);
+	connect(&sw, q_signal, this, q_slot);
+	//QT4 依然可用 不安全
+	//connect(&sw, SIGNAL(Signal()), this, SLOT(Slot()));
+	//connect(&sw, SIGNAL(Signal(QString)), this, SLOT(Slot(QString)));
 }
 
 //自定义槽函数
@@ -33,14 +41,14 @@ void Widget::MainToSub()
 }
 
 //自定义槽函数
-void Widget::DealSignal()
+void Widget::Slot()
 {
 	sw.hide();
 	this->show();
 }
 
 //自定义槽函数
-void Widget::DealSignal(QString str)
+void Widget::Slot(QString str)
 {
 	qDebug() << str.toUtf8().data() << endl;
 }
