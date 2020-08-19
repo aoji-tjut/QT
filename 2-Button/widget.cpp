@@ -5,11 +5,8 @@ Widget::Widget(QWidget* parent)
 {
 	//this是父窗口
 
-	//相当于调用this->resize()、this->move()
-	QDesktopWidget* pdesk = QApplication::desktop();
-	resize(600, 400);		//窗口大小
-	move((pdesk->width() - this->width()) / 2,
-		 (pdesk->height() - this->height()) / 2);	//居中
+	setWindowTitle("Button");	//相当于调用this->setWindowTitle()
+	resize(600, 400);			//相当于调用this->resize()
 
 	//按钮
 	b1.setParent(this);     //指定按钮的父对象

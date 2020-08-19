@@ -1,7 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-#include <QApplication>
+
 #include <QWidget>
 #include <QPushButton>
 #include <QDesktopWidget>
