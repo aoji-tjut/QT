@@ -8,7 +8,7 @@
 #include <QMenuBar>		//菜单栏
 #include <QMenu>		//菜单
 #include <QToolBar>		//工具栏
-#include <QStatusBar>	//状态栏
+#include <QStatusBar>		//状态栏
 #include <QLabel>		//标签
 
 class MainWindow : public QMainWindow

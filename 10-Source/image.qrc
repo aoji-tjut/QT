@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>source/LiAo.jpeg</file>
+    </qresource>
+</RCC>
