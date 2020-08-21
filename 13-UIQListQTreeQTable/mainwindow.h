@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QListWidgetItem>	//插入ListWidget的项
-#include <QStringList>		//相当于string<list>
+#include <QStringList>		//相当于QList<QString>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
