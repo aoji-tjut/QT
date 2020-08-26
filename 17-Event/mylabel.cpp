@@ -91,6 +91,8 @@ void MyLabel::mouseDoubleClickEvent(QMouseEvent* ev)
 			break;
 	}
 
+	str = "Event Filter Intercept\n" + str;
+
 	this->setText(str);
 }
 
@@ -99,7 +101,7 @@ void MyLabel::mouseMoveEvent(QMouseEvent* ev)
 {
 	QPoint pos = ev->pos();
 	QPoint global_pos = ev->globalPos();
-	QString str = QString("Event\nMove\nPos:(%1,%2)\nGlobalPos:(%3,%4)").
+	QString str = QString("Event Intercept\nMove\nPos:(%1,%2)\nGlobalPos:(%3,%4)").
 				  arg(pos.x()).arg(pos.y()).
 				  arg(global_pos.x()).arg(global_pos.y());
 
@@ -145,7 +147,6 @@ bool MyLabel::eventFilter(QObject* obj, QEvent* ev)
 		if(ev->type() == QEvent::MouseButtonDblClick)
 		{
 			this->setStyleSheet("color:red;");
-			this->setText("EventFilter\nMouseButtonDblClick");
 			QMouseEvent* e = static_cast<QMouseEvent*>(ev);
 			MyLabel::mouseDoubleClickEvent(e);
 
