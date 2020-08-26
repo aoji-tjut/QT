@@ -18,7 +18,7 @@ protected:
 	void mouseDoubleClickEvent(QMouseEvent* ev) override;	//鼠标双击
 	void mouseMoveEvent(QMouseEvent* ev) override;			//鼠标移动
 	void leaveEvent(QEvent* ev) override;					//离开
-	//eventFilter()->event()->override...
+	//拦截顺序：eventFilter->event
 	bool event(QEvent* ev) override;						//事件分发
 	bool eventFilter(QObject* obj, QEvent* ev) override;	//事件过滤
 
