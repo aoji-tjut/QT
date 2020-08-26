@@ -14,7 +14,7 @@ Widget::Widget(QWidget* parent)
 	ui->timer_label->setAlignment(Qt::AlignCenter);
 
 	//启动定时器
-	this->TimerID = this->startTimer(500);	//启动定时器 1000ms为间隔 返回定时器ID
+	this->id = this->startTimer(500);	//启动定时器 1000ms为间隔 返回定时器ID
 }
 
 //键盘按下
@@ -31,8 +31,22 @@ void Widget::timerEvent(QTimerEvent* ev)
 
 	if(i > 10)
 	{
-		killTimer(this->TimerID);
+		killTimer(this->id);
 		ui->timer_label->setText(QString("Kill Timer"));
+	}
+}
+
+//关闭
+void Widget::closeEvent(QCloseEvent* ev)
+{
+	int ret = QMessageBox::question(this, "Question", "是否关闭窗口？");
+	if(ret == QMessageBox::Yes)
+	{
+		ev->accept();	//接收事件
+	}
+	else
+	{
+		ev->ignore();	//忽略事件 继续传递给父窗口(不是父类)
 	}
 }
 

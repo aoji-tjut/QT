@@ -2,8 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include <QMessageBox>
-#include<QDebug>
+#include <QTimer>	//定时器
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -17,14 +16,12 @@ public:
 	Widget(QWidget* parent = nullptr);
 	~Widget();
 
-protected:
-	//重写事件虚函数
-	void keyPressEvent(QKeyEvent* ev) override;	//键盘
-	void timerEvent(QTimerEvent* ev) override;	//定时器
-	void closeEvent(QCloseEvent* ev) override;	//关闭窗口
+	void Timer();
+	void ChangeState();
 
 private:
 	Ui::Widget* ui;
-	int id;
+	QTimer* id;
+	int state;
 };
 #endif // WIDGET_H
