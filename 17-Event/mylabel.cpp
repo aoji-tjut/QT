@@ -6,9 +6,6 @@ MyLabel::MyLabel(QWidget* parent) : QLabel(parent)
 	this->setMouseTracking(true);	//追踪鼠标
 	this->setFont(QFont("Helvetica", 30, QFont::Normal));
 	this->setAlignment(Qt::AlignCenter);
-
-	//安装事件过滤器
-	this->installEventFilter(this);
 }
 
 //鼠标按下
@@ -67,35 +64,6 @@ void MyLabel::mouseReleaseEvent(QMouseEvent* ev)
 	this->setText(str);
 }
 
-//鼠标双击
-void MyLabel::mouseDoubleClickEvent(QMouseEvent* ev)
-{
-	QPoint pos = ev->pos();
-	QPoint global_pos = ev->globalPos();
-	QString str = QString("Pos:(%1,%2)\nGlobalPos:(%3,%4)").
-				  arg(pos.x()).arg(pos.y()).
-				  arg(global_pos.x()).arg(global_pos.y());
-
-	switch (ev->button())
-	{
-		case Qt::LeftButton:
-			str = "Left Double Click\n" + str;
-			break;
-		case Qt::RightButton:
-			str = "Right Double Click\n" + str;
-			break;
-		case Qt::MidButton:
-			str = "Mid Double Click\n" + str;
-			break;
-		default:
-			break;
-	}
-
-	str = "Event Filter Intercept\n" + str;
-
-	this->setText(str);
-}
-
 //鼠标移动
 void MyLabel::mouseMoveEvent(QMouseEvent* ev)
 {
@@ -121,9 +89,9 @@ bool MyLabel::event(QEvent* ev)
 	//返回true 用户处理
 	//返回false 父类处理
 
-	//拦截QEvent::MouseMove
 	if(ev->type() == QEvent::MouseMove)
 	{
+		//拦截QEvent::MouseMove
 		this->setStyleSheet("color:blue;");
 		QMouseEvent* e = static_cast<QMouseEvent*>(ev);
 		MyLabel::mouseMoveEvent(e);
@@ -132,33 +100,7 @@ bool MyLabel::event(QEvent* ev)
 	}
 	else
 	{
+		//其他事件父类处理
 		return QLabel::event(ev);
-	}
-}
-
-bool MyLabel::eventFilter(QObject* obj, QEvent* ev)
-{
-	//返回true 用户处理
-	//返回false 父类处理
-
-	//QEvent::MouseButtonDblClick
-	if(obj == this)
-	{
-		if(ev->type() == QEvent::MouseButtonDblClick)
-		{
-			this->setStyleSheet("color:red;");
-			QMouseEvent* e = static_cast<QMouseEvent*>(ev);
-			MyLabel::mouseDoubleClickEvent(e);
-
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	else
-	{
-		return QLabel::eventFilter(obj, ev);
 	}
 }
