@@ -24,6 +24,12 @@ Widget::Widget(QWidget* parent)
 void Widget::keyPressEvent(QKeyEvent* ev)
 {
 	ui->key_label->setText(QString("Key Press\n%1").arg(char(ev->key())));
+
+	if((ev->modifiers() == (Qt::ControlModifier | Qt::AltModifier)) &&
+			(ev->key() == Qt::Key_A))
+	{
+		ui->key_label->setText(QString("Key Press\nControl+Alt+A"));
+	}
 }
 
 //定时器
