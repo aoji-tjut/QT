@@ -33,7 +33,7 @@ void Widget::keyPressEvent(QKeyEvent* ev)
 }
 
 //定时器
-void Widget::timerEvent(QTimerEvent* ev)
+void Widget::timerEvent(QTimerEvent*)
 {
 	static int i = 0;
 	ui->timer_label->setText(QString("Timer\n%1").arg(++i));

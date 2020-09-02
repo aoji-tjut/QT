@@ -12,8 +12,8 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -21,51 +21,46 @@ QT_BEGIN_NAMESPACE
 class Ui_Widget
 {
 public:
-    QGridLayout *gridLayout_3;
-    QWidget *widget_2;
     QGridLayout *gridLayout_2;
-    QLabel *label;
     QWidget *widget;
     QGridLayout *gridLayout;
+    QSpacerItem *horizontalSpacer;
+    QSpacerItem *horizontalSpacer_2;
     QPushButton *pushButton;
+    QSpacerItem *verticalSpacer;
 
     void setupUi(QWidget *Widget)
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QString::fromUtf8("Widget"));
-        Widget->resize(600, 400);
-        Widget->setMinimumSize(QSize(600, 400));
-        Widget->setMaximumSize(QSize(600, 400));
-        gridLayout_3 = new QGridLayout(Widget);
-        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        widget_2 = new QWidget(Widget);
-        widget_2->setObjectName(QString::fromUtf8("widget_2"));
-        gridLayout_2 = new QGridLayout(widget_2);
+        Widget->resize(400, 400);
+        Widget->setMinimumSize(QSize(400, 400));
+        Widget->setMaximumSize(QSize(400, 400));
+        gridLayout_2 = new QGridLayout(Widget);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        label = new QLabel(widget_2);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setMinimumSize(QSize(300, 200));
-        label->setMaximumSize(QSize(300, 200));
-        label->setFrameShape(QFrame::Box);
-
-        gridLayout_2->addWidget(label, 0, 0, 1, 1);
-
-
-        gridLayout_3->addWidget(widget_2, 0, 0, 1, 1);
-
         widget = new QWidget(Widget);
         widget->setObjectName(QString::fromUtf8("widget"));
         gridLayout = new QGridLayout(widget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer, 1, 0, 1, 1);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_2, 1, 2, 1, 1);
+
         pushButton = new QPushButton(widget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setMinimumSize(QSize(100, 50));
-        pushButton->setMaximumSize(QSize(100, 50));
 
-        gridLayout->addWidget(pushButton, 0, 0, 1, 1);
+        gridLayout->addWidget(pushButton, 1, 1, 1, 1);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout->addItem(verticalSpacer, 0, 1, 1, 1);
 
 
-        gridLayout_3->addWidget(widget, 1, 0, 1, 1);
+        gridLayout_2->addWidget(widget, 0, 0, 1, 1);
 
 
         retranslateUi(Widget);
@@ -75,9 +70,8 @@ public:
 
     void retranslateUi(QWidget *Widget)
     {
-        Widget->setWindowTitle(QCoreApplication::translate("Widget", "Timer", nullptr));
-        label->setText(QString());
-        pushButton->setText(QCoreApplication::translate("Widget", "PushButton", nullptr));
+        Widget->setWindowTitle(QCoreApplication::translate("Widget", "Paint", nullptr));
+        pushButton->setText(QCoreApplication::translate("Widget", "Update", nullptr));
     } // retranslateUi
 
 };
