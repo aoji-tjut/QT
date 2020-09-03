@@ -27,19 +27,28 @@ void Widget::paintEvent(QPaintEvent*)
 
 	//设置画刷
 	brush.setColor(QColor(0, 0, 255));	//颜色
-	brush.setStyle(Qt::Dense3Pattern);	//风格
+	brush.setStyle(Qt::Dense5Pattern);	//风格
 
 	//开始画
-	p.begin(this);											//开始绘图 指定绘图设备
-	p.setPen(pen);											//设置画笔
-	p.setBrush(brush);										//设置画刷
-	p.drawPixmap(rect(), QPixmap(":/source/LiAo.jpeg"));	//背景
-	p.drawLine(x1, y1, x2, y2);								//直线
-	p.drawRect(50, 50, 300, 300);							//矩形
-	p.drawEllipse(QPoint(200, 200), 100, 100);				//圆
-	p.drawEllipse(QPoint(200, 200), 200, 100);				//椭圆
-	p.drawEllipse(QPoint(200, 200), 100, 200);				//椭圆
-	p.end();												//结束绘图
+	p.begin(this);												//开始绘图 指定绘图设备
+	p.setRenderHint(QPainter::HighQualityAntialiasing);			//设置抗锯齿
+	p.setFont(QFont("Helvetica", 15, QFont::Normal));			//设置字体
+	p.setPen(pen);												//设置画笔
+	p.setBrush(brush);											//设置画刷
+	p.drawPixmap(rect(), QPixmap(":/source/LiAo.jpeg"));		//背景图片
+	p.drawLine(x1, y1, x2, y2);									//直线
+	p.drawRect(50, 50, 300, 300);								//矩形
+	p.drawEllipse(QPoint(200, 200), 100, 100);					//圆
+	p.drawEllipse(QPoint(200, 200), 200, 100);					//椭圆
+	p.drawEllipse(QPoint(200, 200), 100, 200);					//椭圆
+	p.drawText(QRect(0, 0, 50, 50), Qt::AlignCenter, "Text1");	//文字
+	p.save();													//保存画家位置
+	p.translate(350, 0);										//移动画家(350,0)
+	p.drawText(QRect(0, 0, 50, 50), Qt::AlignCenter, "Text2");	//文字
+	p.drawText(QRect(0, 350, 50, 50), Qt::AlignCenter, "Text3");//文字
+	p.restore();												//恢复画家位置
+	p.drawText(QRect(0, 350, 50, 50), Qt::AlignCenter, "Text4");//文字
+	p.end();													//结束绘图
 }
 
 void Widget::on_pushButton_clicked()
