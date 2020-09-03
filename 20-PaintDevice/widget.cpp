@@ -7,6 +7,7 @@ Widget::Widget(QWidget* parent)
 {
 	ui->setupUi(this);
 
+	this->pen.setColor(QColor(255, 0, 0));
 	this->flag = 0;
 	Pixmap();
 	Bitmap();
@@ -51,13 +52,15 @@ void Widget::paintEvent(QPaintEvent*)
 //针对屏幕优化 与平台相关 不能对图片进行修改
 void Widget::Pixmap()
 {
-	QPainter p;
 	QPixmap pixmap(400, 400);
 
 	//在pixmap上绘图
-	p.begin(&pixmap);
-	p.drawPixmap(QRect(0, 0, 400, 400), QPixmap(":/source/LiAo.jpeg"));
-	p.end();
+	this->p.begin(&pixmap);
+	this->p.setPen(pen);
+	this->p.setFont(QFont("Helvetica", 30, QFont::Normal));
+	this->p.drawPixmap(QRect(0, 0, 400, 400), QPixmap(":/source/LiAo.jpeg"));
+	this->p.drawText(QRect(0, 0, 400, 50), Qt::AlignCenter, "Pixmap");
+	this->p.end();
 
 	pixmap.save("./pixmap.jpg");	//保存图片
 }
@@ -65,13 +68,15 @@ void Widget::Pixmap()
 //Pixmap子类 只能绘制灰度图
 void Widget::Bitmap()
 {
-	QPainter p;
 	QBitmap bitmap(400, 400);
 
 	//在bitmap上绘图
-	p.begin(&bitmap);
-	p.drawPixmap(QRect(0, 0, 400, 400), QBitmap(":/source/LiAo.jpeg"));
-	p.end();
+	this->p.begin(&bitmap);
+	this->p.setPen(pen);
+	this->p.setFont(QFont("Helvetica", 30, QFont::Normal));
+	this->p.drawPixmap(QRect(0, 0, 400, 400), QBitmap(":/source/LiAo.jpeg"));
+	this->p.drawText(QRect(0, 0, 400, 50), Qt::AlignCenter, "Bitmap");
+	this->p.end();
 
 	bitmap.save("./bitmap.jpg");	//保存图片
 }
@@ -79,12 +84,13 @@ void Widget::Bitmap()
 //与平台无关 可以对图片进行修改 可以在线程中绘图
 void Widget::Image()
 {
-	QPainter p;
 	QImage image(400, 400, QImage::Format_RGB32);
 
 	//在image上绘图
-	p.begin(&image);
-	p.drawImage(QRect(0, 0, 400, 400), QImage(":/source/LiAo.jpeg"));
+	this->p.begin(&image);
+	this->p.setPen(pen);
+	this->p.setFont(QFont("Helvetica", 30, QFont::Normal));
+	this->p.drawImage(QRect(0, 0, 400, 400), QImage(":/source/LiAo.jpeg"));
 	//更改像素
 	for(int x = 0; x < 400; x++)
 	{
@@ -97,7 +103,8 @@ void Widget::Image()
 			}
 		}
 	}
-	p.end();
+	this->p.drawText(QRect(0, 0, 400, 50), Qt::AlignCenter, "Image");
+	this->p.end();
 
 	image.save("./image.jpg");	//保存图片
 }
@@ -105,13 +112,15 @@ void Widget::Image()
 //用于保存、读取绘图状态(二进制文件)
 void Widget::Picture()
 {
-	QPainter p;
 	QPicture picture;
 
 	//在picture上绘图
-	p.begin(&picture);
-	p.drawPixmap(QRect(0, 0, 400, 400), QPixmap(":/source/LiAo.jpeg"));
-	p.end();
+	this->p.begin(&picture);
+	this->p.setPen(pen);
+	this->p.setFont(QFont("Helvetica", 30, QFont::Normal));
+	this->p.drawPixmap(QRect(0, 0, 400, 400), QPixmap(":/source/LiAo.jpeg"));
+	this->p.drawText(QRect(0, 0, 400, 50), Qt::AlignCenter, "Picture");
+	this->p.end();
 
 	picture.save("./picture.jpg");	//保存图片
 }

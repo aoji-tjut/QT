@@ -35,6 +35,8 @@ private slots:
 
 private:
 	Ui::Widget* ui;
+	QPainter p;
+	QPen pen;
 	int flag;
 };
 #endif // WIDGET_H
