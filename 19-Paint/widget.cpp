@@ -39,7 +39,7 @@ void Widget::paintEvent(QPaintEvent*)
 
 	//开始画
 	p.begin(this);												//开始绘图 指定绘图设备
-	p.setRenderHint(QPainter::HighQualityAntialiasing);			//设置抗锯齿
+	p.setRenderHint(QPainter::Antialiasing);					//设置抗锯齿
 	p.setFont(QFont("Helvetica", 15, QFont::Normal));			//设置字体
 	p.setPen(pen);												//设置画笔
 	p.setBrush(brush);											//设置画刷
