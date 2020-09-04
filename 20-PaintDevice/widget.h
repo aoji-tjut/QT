@@ -21,11 +21,13 @@ public:
 	Widget(QWidget* parent = nullptr);
 	~Widget();
 
-	void paintEvent(QPaintEvent* ev) override;
 	void Pixmap();
 	void Bitmap();
 	void Image();
 	void Picture();
+
+protected:
+	void paintEvent(QPaintEvent* ev) override;
 
 private slots:
 	void on_bt_pixmap_clicked();

@@ -7,9 +7,17 @@ MainWindow::MainWindow(QWidget* parent)
 {
 	ui->setupUi(this);
 
+	setWindowTitle("UIQListQTreeQTable");
+	setFixedSize(600, 400);
+
 	ListWidget();
 	TreeWidget();
 	TableWidget();
+}
+
+MainWindow::~MainWindow()
+{
+	delete ui;
 }
 
 //列
@@ -71,9 +79,3 @@ void MainWindow::TableWidget()
 		}
 	}
 }
-
-MainWindow::~MainWindow()
-{
-	delete ui;
-}
-

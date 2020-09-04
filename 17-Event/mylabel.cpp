@@ -77,7 +77,7 @@ void MyLabel::mouseMoveEvent(QMouseEvent* ev)
 }
 
 //鼠标离开
-void MyLabel::leaveEvent(QEvent* ev)
+void MyLabel::leaveEvent(QEvent*)
 {
 	this->setStyleSheet("color:black;");
 	this->setText(QString("Leave Event"));

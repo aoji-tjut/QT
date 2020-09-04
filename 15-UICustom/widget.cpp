@@ -8,6 +8,7 @@ Widget::Widget(QWidget* parent)
 	ui->setupUi(this);
 
 	setWindowTitle("UICustom");
+	setFixedSize(600, 400);
 }
 
 Widget::~Widget()

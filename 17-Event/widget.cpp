@@ -7,6 +7,9 @@ Widget::Widget(QWidget* parent)
 {
 	ui->setupUi(this);
 
+	setWindowTitle("Event");
+	setFixedSize(600, 400);
+
 	//label设置
 	ui->key_label->setFont(QFont("Helvetica", 30, QFont::Normal));
 	ui->key_label->setAlignment(Qt::AlignCenter);
@@ -18,6 +21,11 @@ Widget::Widget(QWidget* parent)
 
 	//给mouse_label控件安装事件过滤器
 	ui->mouse_label->installEventFilter(this);	//指定父对象
+}
+
+Widget::~Widget()
+{
+	delete ui;
 }
 
 //键盘按下
@@ -111,9 +119,4 @@ bool Widget::eventFilter(QObject* obj, QEvent* ev)
 		//其他控件父类处理
 		return QWidget::eventFilter(obj, ev);
 	}
-}
-
-Widget::~Widget()
-{
-	delete ui;
 }

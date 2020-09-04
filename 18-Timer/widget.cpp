@@ -7,6 +7,9 @@ Widget::Widget(QWidget* parent)
 {
 	ui->setupUi(this);
 
+	setWindowTitle("Timer");
+	setFixedSize(600, 400);
+
 	//label
 	ui->label->setFont(QFont("Helvetica", 30, QFont::Normal));
 	ui->label->setAlignment(Qt::AlignCenter);
@@ -20,6 +23,11 @@ Widget::Widget(QWidget* parent)
 	this->id = new QTimer(this);
 	this->id->start(500);
 	connect(this->id, &QTimer::timeout, this, &Widget::Timer);
+}
+
+Widget::~Widget()
+{
+	delete ui;
 }
 
 void Widget::Timer()
@@ -45,9 +53,3 @@ void Widget::ChangeState()
 		this->state = 1;
 	}
 }
-
-Widget::~Widget()
-{
-	delete ui;
-}
-

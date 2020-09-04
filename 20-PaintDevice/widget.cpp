@@ -7,12 +7,20 @@ Widget::Widget(QWidget* parent)
 {
 	ui->setupUi(this);
 
+	setWindowTitle("PaintDevice");
+	setFixedSize(600, 400);
+
 	this->pen.setColor(QColor(255, 0, 0));
 	this->flag = 0;
 	Pixmap();
 	Bitmap();
 	Image();
 	Picture();
+}
+
+Widget::~Widget()
+{
+	delete ui;
 }
 
 //重写绘图事件
@@ -147,9 +155,4 @@ void Widget::on_bt_picture_clicked()
 {
 	this->flag = 4;
 	repaint();
-}
-
-Widget::~Widget()
-{
-	delete ui;
 }

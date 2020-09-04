@@ -33,6 +33,10 @@ Widget::Widget(QWidget* parent)
 	//connect(&sw, SIGNAL(Signal(QString)), this, SLOT(Slot(QString)));
 }
 
+Widget::~Widget()
+{
+}
+
 //自定义槽函数
 void Widget::MainToSub()
 {
@@ -51,8 +55,4 @@ void Widget::Slot()
 void Widget::Slot(QString str)
 {
 	qDebug() << str.toUtf8().data() << endl;
-}
-
-Widget::~Widget()
-{
 }

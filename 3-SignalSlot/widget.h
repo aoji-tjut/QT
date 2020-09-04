@@ -14,7 +14,7 @@ public:
 	Widget(QWidget* parent = nullptr);
 	~Widget();
 
-public slots:	//槽函数关键字 自定义槽函数
+private slots:	//槽函数关键字 自定义槽函数
 	//槽函数 对接收的信号进行处理 返回值void 可以有参数 需要实现 可以重载
 	void MainToSub();
 	void Slot();

@@ -3,7 +3,7 @@
 MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent)
 {
-	setWindowTitle("Dialog");
+	setWindowTitle("FileDialog");
 	resize(600, 400);
 
 	b = new QPushButton(this);
@@ -14,6 +14,10 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(b, &QPushButton::clicked, this, &MainWindow::OpenFile);
 }
 
+MainWindow::~MainWindow()
+{
+}
+
 //文件对话框
 void MainWindow::OpenFile()
 {
@@ -22,8 +26,4 @@ void MainWindow::OpenFile()
 	QString path = QFileDialog::getOpenFileName(this, "OpenFile", "/",
 				   "Image(*.jpg *.png);;Text(*.txt)");
 	qDebug() << path << endl;
-}
-
-MainWindow::~MainWindow()
-{
 }

@@ -7,6 +7,9 @@ Widget::Widget(QWidget* parent)
 {
 	ui->setupUi(this);
 
+	setWindowTitle("StyleSheet");
+	setFixedSize(600, 400);
+
 	ui->label->setAlignment(Qt::AlignCenter);	//居中
 	ui->label->setStyleSheet("QLabel{"
 							 "color:red;"

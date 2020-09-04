@@ -7,11 +7,19 @@ Widget::Widget(QWidget* parent)
 {
 	ui->setupUi(this);
 
+	setWindowTitle("Paint");
+	setFixedSize(400, 400);
+
 	qsrand(time(nullptr));
 	x1 = qrand() % 400;
 	y1 = qrand() % 400;
 	x2 = qrand() % 400;
 	y2 = qrand() % 400;
+}
+
+Widget::~Widget()
+{
+	delete ui;
 }
 
 void Widget::paintEvent(QPaintEvent*)
@@ -67,9 +75,4 @@ void Widget::on_pushButton_clicked()
 	}
 
 	update();	//间接触发绘图事件
-}
-
-Widget::~Widget()
-{
-	delete ui;
 }

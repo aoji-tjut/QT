@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget* parent)
 {
 	ui->setupUi(this);
 
+	setWindowTitle("UIOther");
+	setFixedSize(600, 400);
+
 	//StackedWidget
 	ui->stackedWidget->setCurrentIndex(0);	//设置当前页
 	connect(ui->scroll_area, &QPushButton::clicked, this,

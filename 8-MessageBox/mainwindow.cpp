@@ -3,7 +3,7 @@
 MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent)
 {
-	setWindowTitle("Dialog");
+	setWindowTitle("MessageBox");
 	resize(600, 400);
 
 	b1 = new QPushButton(this);
@@ -38,6 +38,10 @@ MainWindow::MainWindow(QWidget* parent)
 	[ = ]() {QMessageBox::about(this, "About", "About...");});
 }
 
+MainWindow::~MainWindow()
+{
+}
+
 //“问题”对话框
 void MainWindow::Question()
 {
@@ -57,8 +61,4 @@ void MainWindow::Question()
 		default:
 			break;
 	}
-}
-
-MainWindow::~MainWindow()
-{
 }

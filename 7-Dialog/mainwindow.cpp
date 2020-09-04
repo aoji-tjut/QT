@@ -19,6 +19,10 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(b2, &QPushButton::clicked, this, &MainWindow::NoModalDialog);
 }
 
+MainWindow::~MainWindow()
+{
+}
+
 //模态对话框
 void MainWindow::ModalDialog()
 {
@@ -38,8 +42,4 @@ void MainWindow::NoModalDialog()
 	no_model_dialog->resize(300, 200);
 	no_model_dialog->show();								//非阻塞
 	//可以设置为全局栈区变量避免直接释放 也可避免内存问题
-}
-
-MainWindow::~MainWindow()
-{
 }

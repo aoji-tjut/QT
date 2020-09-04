@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget* parent)
 {
 	ui->setupUi(this);
 
+	setWindowTitle("UIButton");
+	setFixedSize(600, 400);		//固定窗口大小
+
 	//设置默认
 	//单选按钮
 	ui->radioButton1->setChecked(true);
@@ -45,4 +48,3 @@ MainWindow::~MainWindow()
 {
 	delete ui;
 }
-
