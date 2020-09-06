@@ -5,10 +5,8 @@
 #include <QString>
 #include <QMessageBox>
 #include <QCloseEvent>
-#include <QIntValidator>        //数字限制
-#include <QTcpServer>           //监听套接字
-#include <QTcpSocket>           //通信套接字
-#include <QNetworkInterface>    //主机网络
+#include <QTcpSocket>   //通信套接字
+#include <QHostAddress> //ip地址
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -22,22 +20,19 @@ public:
 	Widget(QWidget* parent = nullptr);
 	~Widget();
 
-	void SetServerIP();
-
 protected:
 	void closeEvent(QCloseEvent* ev);
 
 private slots:
 	void Connect();
-	void Disconnect(QAbstractSocket::SocketError);
 	void Receive();
+	void on_bt_connect_clicked();
 	void on_bt_send_clicked();
+	void on_bt_disconnect_clicked();
 	void on_bt_close_clicked();
-	void on_bt_listen_clicked();
 
 private:
 	Ui::Widget* ui;
-	QTcpServer* tcp_server;
 	QTcpSocket* tcp_socket;
 };
 #endif // WIDGET_H

@@ -11,7 +11,10 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTextEdit>
@@ -24,6 +27,19 @@ class Ui_Widget
 {
 public:
     QVBoxLayout *verticalLayout_2;
+    QWidget *widget_3;
+    QGridLayout *gridLayout;
+    QLabel *label_4;
+    QLabel *label_3;
+    QPushButton *bt_listen;
+    QSpacerItem *horizontalSpacer_4;
+    QLineEdit *line_client_ip;
+    QLineEdit *line_client_port;
+    QLineEdit *line_server_port;
+    QLabel *label;
+    QLineEdit *line_server_ip;
+    QLabel *label_2;
+    QSpacerItem *horizontalSpacer_5;
     QWidget *widget;
     QVBoxLayout *verticalLayout;
     QTextEdit *text_recv;
@@ -40,9 +56,73 @@ public:
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QString::fromUtf8("Widget"));
-        Widget->resize(600, 400);
+        Widget->resize(600, 600);
         verticalLayout_2 = new QVBoxLayout(Widget);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        widget_3 = new QWidget(Widget);
+        widget_3->setObjectName(QString::fromUtf8("widget_3"));
+        gridLayout = new QGridLayout(widget_3);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        label_4 = new QLabel(widget_3);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        gridLayout->addWidget(label_4, 1, 3, 1, 1);
+
+        label_3 = new QLabel(widget_3);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        gridLayout->addWidget(label_3, 0, 3, 1, 1);
+
+        bt_listen = new QPushButton(widget_3);
+        bt_listen->setObjectName(QString::fromUtf8("bt_listen"));
+
+        gridLayout->addWidget(bt_listen, 0, 6, 2, 1);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_4, 0, 2, 1, 1);
+
+        line_client_ip = new QLineEdit(widget_3);
+        line_client_ip->setObjectName(QString::fromUtf8("line_client_ip"));
+        line_client_ip->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(line_client_ip, 0, 4, 1, 1);
+
+        line_client_port = new QLineEdit(widget_3);
+        line_client_port->setObjectName(QString::fromUtf8("line_client_port"));
+        line_client_port->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(line_client_port, 1, 4, 1, 1);
+
+        line_server_port = new QLineEdit(widget_3);
+        line_server_port->setObjectName(QString::fromUtf8("line_server_port"));
+        line_server_port->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(line_server_port, 1, 1, 1, 1);
+
+        label = new QLabel(widget_3);
+        label->setObjectName(QString::fromUtf8("label"));
+
+        gridLayout->addWidget(label, 0, 0, 1, 1);
+
+        line_server_ip = new QLineEdit(widget_3);
+        line_server_ip->setObjectName(QString::fromUtf8("line_server_ip"));
+        line_server_ip->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(line_server_ip, 0, 1, 1, 1);
+
+        label_2 = new QLabel(widget_3);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        gridLayout->addWidget(label_2, 1, 0, 1, 1);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_5, 0, 5, 1, 1);
+
+
+        verticalLayout_2->addWidget(widget_3);
+
         widget = new QWidget(Widget);
         widget->setObjectName(QString::fromUtf8("widget"));
         verticalLayout = new QVBoxLayout(widget);
@@ -102,6 +182,11 @@ public:
     void retranslateUi(QWidget *Widget)
     {
         Widget->setWindowTitle(QCoreApplication::translate("Widget", "Widget", nullptr));
+        label_4->setText(QCoreApplication::translate("Widget", "Client Port:", nullptr));
+        label_3->setText(QCoreApplication::translate("Widget", "Client IP:", nullptr));
+        bt_listen->setText(QCoreApplication::translate("Widget", "Listen", nullptr));
+        label->setText(QCoreApplication::translate("Widget", "Server IP:", nullptr));
+        label_2->setText(QCoreApplication::translate("Widget", "Server Port:", nullptr));
         bt_send->setText(QCoreApplication::translate("Widget", "Send", nullptr));
         bt_close->setText(QCoreApplication::translate("Widget", "Close", nullptr));
     } // retranslateUi

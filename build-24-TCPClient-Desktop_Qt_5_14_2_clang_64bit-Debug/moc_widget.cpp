@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../23-TCPServer/widget.h"
+#include "../24-TCPClient/widget.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Widget_t {
-    QByteArrayData data[9];
-    char stringdata0[124];
+    QByteArrayData data[8];
+    char stringdata0[110];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,18 +35,16 @@ static const qt_meta_stringdata_Widget_t qt_meta_stringdata_Widget = {
 QT_MOC_LITERAL(0, 0, 6), // "Widget"
 QT_MOC_LITERAL(1, 7, 7), // "Connect"
 QT_MOC_LITERAL(2, 15, 0), // ""
-QT_MOC_LITERAL(3, 16, 10), // "Disconnect"
-QT_MOC_LITERAL(4, 27, 28), // "QAbstractSocket::SocketError"
-QT_MOC_LITERAL(5, 56, 7), // "Receive"
-QT_MOC_LITERAL(6, 64, 18), // "on_bt_send_clicked"
-QT_MOC_LITERAL(7, 83, 19), // "on_bt_close_clicked"
-QT_MOC_LITERAL(8, 103, 20) // "on_bt_listen_clicked"
+QT_MOC_LITERAL(3, 16, 7), // "Receive"
+QT_MOC_LITERAL(4, 24, 21), // "on_bt_connect_clicked"
+QT_MOC_LITERAL(5, 46, 18), // "on_bt_send_clicked"
+QT_MOC_LITERAL(6, 65, 24), // "on_bt_disconnect_clicked"
+QT_MOC_LITERAL(7, 90, 19) // "on_bt_close_clicked"
 
     },
-    "Widget\0Connect\0\0Disconnect\0"
-    "QAbstractSocket::SocketError\0Receive\0"
-    "on_bt_send_clicked\0on_bt_close_clicked\0"
-    "on_bt_listen_clicked"
+    "Widget\0Connect\0\0Receive\0on_bt_connect_clicked\0"
+    "on_bt_send_clicked\0on_bt_disconnect_clicked\0"
+    "on_bt_close_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,15 +63,15 @@ static const uint qt_meta_data_Widget[] = {
 
  // slots: name, argc, parameters, tag, flags
        1,    0,   44,    2, 0x08 /* Private */,
-       3,    1,   45,    2, 0x08 /* Private */,
-       5,    0,   48,    2, 0x08 /* Private */,
-       6,    0,   49,    2, 0x08 /* Private */,
-       7,    0,   50,    2, 0x08 /* Private */,
-       8,    0,   51,    2, 0x08 /* Private */,
+       3,    0,   45,    2, 0x08 /* Private */,
+       4,    0,   46,    2, 0x08 /* Private */,
+       5,    0,   47,    2, 0x08 /* Private */,
+       6,    0,   48,    2, 0x08 /* Private */,
+       7,    0,   49,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 4,    2,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -89,25 +87,15 @@ void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->Connect(); break;
-        case 1: _t->Disconnect((*reinterpret_cast< QAbstractSocket::SocketError(*)>(_a[1]))); break;
-        case 2: _t->Receive(); break;
+        case 1: _t->Receive(); break;
+        case 2: _t->on_bt_connect_clicked(); break;
         case 3: _t->on_bt_send_clicked(); break;
-        case 4: _t->on_bt_close_clicked(); break;
-        case 5: _t->on_bt_listen_clicked(); break;
+        case 4: _t->on_bt_disconnect_clicked(); break;
+        case 5: _t->on_bt_close_clicked(); break;
         default: ;
         }
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        switch (_id) {
-        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 1:
-            switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-            case 0:
-                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QAbstractSocket::SocketError >(); break;
-            }
-            break;
-        }
     }
+    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject Widget::staticMetaObject = { {
@@ -144,7 +132,7 @@ int Widget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 6)
-            qt_static_metacall(this, _c, _id, _a);
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 6;
     }
     return _id;
