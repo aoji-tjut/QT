@@ -31,7 +31,7 @@ Widget::~Widget()
 //键盘按下
 void Widget::keyPressEvent(QKeyEvent* ev)
 {
-	ui->key_label->setText(QString("Key Press\n%1").arg(char(ev->key())));
+	ui->key_label->setText(QString("Key Press\n%1").arg(ev->text()));
 
 	if((ev->modifiers() == (Qt::ControlModifier | Qt::AltModifier)) &&
 			(ev->key() == Qt::Key_A))

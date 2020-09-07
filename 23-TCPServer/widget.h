@@ -5,6 +5,7 @@
 #include <QString>
 #include <QMessageBox>
 #include <QCloseEvent>
+#include <QKeyEvent>
 #include <QIntValidator>        //数字限制
 #include <QTcpServer>           //监听套接字
 #include <QTcpSocket>           //通信套接字
@@ -25,7 +26,8 @@ public:
 	void SetServerIP();
 
 protected:
-	void closeEvent(QCloseEvent* ev);
+	void closeEvent(QCloseEvent* ev) override;
+	bool eventFilter(QObject* obj, QEvent* ev) override;
 
 private slots:
 	void Connect();

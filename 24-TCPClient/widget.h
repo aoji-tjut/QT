@@ -5,6 +5,7 @@
 #include <QString>
 #include <QMessageBox>
 #include <QCloseEvent>
+#include <QKeyEvent>
 #include <QTcpSocket>   //通信套接字
 #include <QHostAddress> //ip地址
 
@@ -21,7 +22,8 @@ public:
 	~Widget();
 
 protected:
-	void closeEvent(QCloseEvent* ev);
+	void closeEvent(QCloseEvent* ev) override;
+	bool eventFilter(QObject* obj, QEvent* ev) override;
 
 private slots:
 	void Connect();

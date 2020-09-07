@@ -9,14 +9,16 @@ Widget::Widget(QWidget* parent)
 	ui->setupUi(this);
 
 	setWindowTitle("TCPClient");
-	ui->text_recv->setReadOnly(true);
 	ui->bt_send->setEnabled(false);
 	ui->bt_disconnect->setEnabled(false);
+	ui->line_ip->setPlaceholderText("127.0.0.1");
+	ui->text_recv->setReadOnly(true);
+	ui->text_send->installEventFilter(this);
 
 	this->tcp_socket = new QTcpSocket(this);
 
-	connect(this->tcp_socket, &QTcpSocket::connected, this, &Widget::Connect); //连接成功
-	connect(this->tcp_socket, &QTcpSocket::readyRead, this, &Widget::Receive); //接收数据
+	connect(this->tcp_socket, &QTcpSocket::connected, this, &Widget::Connect);	//连接成功
+	connect(this->tcp_socket, &QTcpSocket::readyRead, this, &Widget::Receive);	//接收数据
 }
 
 Widget::~Widget()
@@ -24,17 +26,58 @@ Widget::~Widget()
 	delete ui;
 }
 
+//关闭窗口事件点击叉子 同点击Close
+void Widget::closeEvent(QCloseEvent* ev)
+{
+	if(QMessageBox::question(this, "Close", "Close Client?") == QMessageBox::No)
+	{
+		ev->ignore();
+		return;
+	}
+
+	this->tcp_socket->disconnectFromHost();
+	this->tcp_socket->close();
+}
+
+//事件过滤 Ctrl+Enter发送
+bool Widget::eventFilter(QObject* obj, QEvent* ev)
+{
+	if(obj == ui->text_send)
+	{
+		if(ev->type() == QEvent::KeyPress)
+		{
+			QKeyEvent* e = static_cast<QKeyEvent*>(ev);
+			if(e->modifiers() == Qt::ControlModifier && e->key() == Qt::Key_Return &&
+					ui->bt_send->isEnabled())
+			{
+				on_bt_send_clicked();
+				return true;
+			}
+		}
+	}
+
+	return QWidget::eventFilter(obj, ev);
+}
+
 //尝试连接
 void Widget::on_bt_connect_clicked()
 {
-	if(ui->line_ip->text() == "" || ui->line_port->text() == "")
+	if(ui->line_port->text().isEmpty())
 	{
-		QMessageBox::warning(this, "Warning", "Enter ip and port");
+		QMessageBox::warning(this, "Warning", "Enter Port");
 		return;
 	}
 
 	//获取服务器信息
-	QString ip = ui->line_ip->text();
+	QString ip;
+	if(ui->line_ip->text().isEmpty())
+	{
+		ip = "127.0.0.1";
+	}
+	else
+	{
+		ip = ui->line_ip->text();
+	}
 	quint16 port = ui->line_port->text().toUInt();
 
 	//尝试建立连接 连接成功发送QTcpSocket::connected信号
@@ -73,7 +116,7 @@ void Widget::Receive()
 void Widget::on_bt_send_clicked()
 {
 	QString text = ui->text_send->toPlainText();
-	if(text == "")
+	if(text.isEmpty())
 	{
 		return;
 	}
@@ -86,18 +129,5 @@ void Widget::on_bt_send_clicked()
 //关闭窗口
 void Widget::on_bt_close_clicked()
 {
-	close();
-}
-
-//点击叉子 同点击Close
-void Widget::closeEvent(QCloseEvent* ev)
-{
-	if(QMessageBox::question(this, "Close", "Close Client?") == QMessageBox::No)
-	{
-		ev->ignore();
-		return;
-	}
-
-	this->tcp_socket->disconnectFromHost();
-	this->tcp_socket->close();
+	close();	//触发closeEvent
 }

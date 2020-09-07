@@ -11,21 +11,59 @@ Widget::Widget(QWidget* parent)
 	ui->line_server_ip->setReadOnly(true);
 	ui->line_client_ip->setReadOnly(true);
 	ui->line_client_port->setReadOnly(true);
-	ui->line_server_port->setValidator(new QIntValidator(1, 65535, this));  //端口号范围
-	ui->text_recv->setReadOnly(true);
+	ui->line_server_port->setValidator(new QIntValidator(1, 65535, this));	//端口号范围
 	ui->bt_send->setEnabled(false);
+	ui->text_recv->setReadOnly(true);
+	ui->text_send->installEventFilter(this);
 
 	this->tcp_server = new QTcpServer(this);
 	this->tcp_socket = nullptr;
 
 	SetServerIP();
 
-	connect(this->tcp_server, &QTcpServer::newConnection, this, &Widget::Connect);  //连接成功
+	connect(this->tcp_server, &QTcpServer::newConnection, this, &Widget::Connect);	//连接成功
 }
 
 Widget::~Widget()
 {
 	delete ui;
+}
+
+//窗口关闭事件 点击叉子 同点击Close
+void Widget::closeEvent(QCloseEvent* ev)
+{
+	if(QMessageBox::question(this, "Close", "Close Server?") == QMessageBox::No)
+	{
+		ev->ignore();
+		return;
+	}
+
+	//连接成功后需要关闭套接字
+	if(this->tcp_socket)
+	{
+		this->tcp_socket->disconnectFromHost();
+		this->tcp_socket->close();
+	}
+}
+
+//事件过滤 Ctrl+Enter发送
+bool Widget::eventFilter(QObject* obj, QEvent* ev)
+{
+	if(obj == ui->text_send)
+	{
+		if(ev->type() == QEvent::KeyPress)
+		{
+			QKeyEvent* e = static_cast<QKeyEvent*>(ev);
+			if(e->modifiers() == Qt::ControlModifier && e->key() == Qt::Key_Return &&
+					ui->bt_send->isEnabled())
+			{
+				on_bt_send_clicked();
+				return true;
+			}
+		}
+	}
+
+	return QWidget::eventFilter(obj, ev);
 }
 
 //获取本地IP
@@ -50,9 +88,9 @@ void Widget::SetServerIP()
 //监听
 void Widget::on_bt_listen_clicked()
 {
-	if(ui->line_server_port->text() == "")
+	if(ui->line_server_port->text().isEmpty())
 	{
-		QMessageBox::warning(this, "Warning", "Enter server port");
+		QMessageBox::warning(this, "Warning", "Enter Server Port");
 		return;
 	}
 
@@ -69,10 +107,10 @@ void Widget::Connect()
 	this->tcp_socket = this->tcp_server->nextPendingConnection();
 
 	//设置tcp_socket信号与槽函数
-	connect(this->tcp_socket, &QTcpSocket::readyRead, this, &Widget::Receive); //接收数据
+	connect(this->tcp_socket, &QTcpSocket::readyRead, this, &Widget::Receive);	//接收数据
 	void (QTcpSocket::*signal)(QAbstractSocket::SocketError) = &QTcpSocket::error;
 	void (Widget::*slot)(QAbstractSocket::SocketError) = &Widget::Disconnect;
-	connect(this->tcp_socket, signal, this, slot); //连接出错
+	connect(this->tcp_socket, signal, this, slot);								//连接出错
 
 	//获取客户端信息
 	QString ip = this->tcp_socket->peerAddress().toString();
@@ -115,7 +153,7 @@ void Widget::Receive()
 void Widget::on_bt_send_clicked()
 {
 	QString text = ui->text_send->toPlainText();
-	if(text == "")
+	if(text.isEmpty())
 	{
 		return;
 	}
@@ -128,22 +166,5 @@ void Widget::on_bt_send_clicked()
 //关闭窗口
 void Widget::on_bt_close_clicked()
 {
-	close();    //触发closeEvent
-}
-
-//点击叉子 同点击Close
-void Widget::closeEvent(QCloseEvent* ev)
-{
-	if(QMessageBox::question(this, "Close", "Close Server?") == QMessageBox::No)
-	{
-		ev->ignore();
-		return;
-	}
-
-	//连接成功后需要关闭套接字
-	if(this->tcp_socket)
-	{
-		this->tcp_socket->disconnectFromHost();
-		this->tcp_socket->close();
-	}
+	close();	//触发closeEvent
 }

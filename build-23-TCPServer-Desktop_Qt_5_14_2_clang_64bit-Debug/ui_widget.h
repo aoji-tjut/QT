@@ -37,9 +37,11 @@ public:
     QLineEdit *line_client_port;
     QLineEdit *line_server_port;
     QLabel *label;
+    QSpacerItem *horizontalSpacer_5;
+    QSpacerItem *horizontalSpacer_6;
     QLineEdit *line_server_ip;
     QLabel *label_2;
-    QSpacerItem *horizontalSpacer_5;
+    QSpacerItem *horizontalSpacer_7;
     QWidget *widget;
     QVBoxLayout *verticalLayout;
     QTextEdit *text_recv;
@@ -66,59 +68,67 @@ public:
         label_4 = new QLabel(widget_3);
         label_4->setObjectName(QString::fromUtf8("label_4"));
 
-        gridLayout->addWidget(label_4, 1, 3, 1, 1);
+        gridLayout->addWidget(label_4, 1, 4, 1, 1);
 
         label_3 = new QLabel(widget_3);
         label_3->setObjectName(QString::fromUtf8("label_3"));
 
-        gridLayout->addWidget(label_3, 0, 3, 1, 1);
+        gridLayout->addWidget(label_3, 0, 4, 1, 1);
 
         bt_listen = new QPushButton(widget_3);
         bt_listen->setObjectName(QString::fromUtf8("bt_listen"));
 
-        gridLayout->addWidget(bt_listen, 0, 6, 2, 1);
+        gridLayout->addWidget(bt_listen, 0, 7, 2, 1);
 
         horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer_4, 0, 2, 1, 1);
+        gridLayout->addItem(horizontalSpacer_4, 0, 3, 1, 1);
 
         line_client_ip = new QLineEdit(widget_3);
         line_client_ip->setObjectName(QString::fromUtf8("line_client_ip"));
         line_client_ip->setAlignment(Qt::AlignCenter);
 
-        gridLayout->addWidget(line_client_ip, 0, 4, 1, 1);
+        gridLayout->addWidget(line_client_ip, 0, 5, 1, 1);
 
         line_client_port = new QLineEdit(widget_3);
         line_client_port->setObjectName(QString::fromUtf8("line_client_port"));
         line_client_port->setAlignment(Qt::AlignCenter);
 
-        gridLayout->addWidget(line_client_port, 1, 4, 1, 1);
+        gridLayout->addWidget(line_client_port, 1, 5, 1, 1);
 
         line_server_port = new QLineEdit(widget_3);
         line_server_port->setObjectName(QString::fromUtf8("line_server_port"));
         line_server_port->setAlignment(Qt::AlignCenter);
 
-        gridLayout->addWidget(line_server_port, 1, 1, 1, 1);
+        gridLayout->addWidget(line_server_port, 1, 2, 1, 1);
 
         label = new QLabel(widget_3);
         label->setObjectName(QString::fromUtf8("label"));
 
-        gridLayout->addWidget(label, 0, 0, 1, 1);
+        gridLayout->addWidget(label, 0, 1, 1, 1);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_5, 0, 6, 1, 1);
+
+        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_6, 0, 0, 1, 1);
 
         line_server_ip = new QLineEdit(widget_3);
         line_server_ip->setObjectName(QString::fromUtf8("line_server_ip"));
         line_server_ip->setAlignment(Qt::AlignCenter);
 
-        gridLayout->addWidget(line_server_ip, 0, 1, 1, 1);
+        gridLayout->addWidget(line_server_ip, 0, 2, 1, 1);
 
         label_2 = new QLabel(widget_3);
         label_2->setObjectName(QString::fromUtf8("label_2"));
 
-        gridLayout->addWidget(label_2, 1, 0, 1, 1);
+        gridLayout->addWidget(label_2, 1, 1, 1, 1);
 
-        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer_5, 0, 5, 1, 1);
+        gridLayout->addItem(horizontalSpacer_7, 0, 8, 1, 1);
 
 
         verticalLayout_2->addWidget(widget_3);
