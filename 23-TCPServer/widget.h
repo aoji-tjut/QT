@@ -6,10 +6,10 @@
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QKeyEvent>
-#include <QIntValidator>        //数字限制
+#include <QValidator>           //验证器
+#include <QNetworkInterface>    //主机网络
 #include <QTcpServer>           //监听套接字
 #include <QTcpSocket>           //通信套接字
-#include <QNetworkInterface>    //主机网络
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -29,13 +29,17 @@ protected:
 	void closeEvent(QCloseEvent* ev) override;
 	bool eventFilter(QObject* obj, QEvent* ev) override;
 
+signals:
+    void CtrlEnter();
+
 private slots:
 	void Connect();
-	void Disconnect(QAbstractSocket::SocketError);
+    void Disconnect();
+    void Error(QAbstractSocket::SocketError);
 	void Receive();
+    void on_bt_listen_clicked();
 	void on_bt_send_clicked();
 	void on_bt_close_clicked();
-	void on_bt_listen_clicked();
 
 private:
 	Ui::Widget* ui;

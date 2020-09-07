@@ -6,8 +6,9 @@
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QKeyEvent>
-#include <QTcpSocket>   //通信套接字
+#include <QValidator>   //验证器
 #include <QHostAddress> //ip地址
+#include <QTcpSocket>   //通信套接字
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -25,12 +26,15 @@ protected:
 	void closeEvent(QCloseEvent* ev) override;
 	bool eventFilter(QObject* obj, QEvent* ev) override;
 
+signals:
+    void CtrlEnter();
+
 private slots:
 	void Connect();
 	void Receive();
 	void on_bt_connect_clicked();
+    void on_bt_disconnect_clicked();
 	void on_bt_send_clicked();
-	void on_bt_disconnect_clicked();
 	void on_bt_close_clicked();
 
 private:

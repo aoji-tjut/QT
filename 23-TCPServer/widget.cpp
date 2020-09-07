@@ -8,11 +8,13 @@ Widget::Widget(QWidget* parent)
 	ui->setupUi(this);
 
 	setWindowTitle("TCPServer");
-	ui->line_server_ip->setReadOnly(true);
-	ui->line_client_ip->setReadOnly(true);
-	ui->line_client_port->setReadOnly(true);
-	ui->line_server_port->setValidator(new QIntValidator(1, 65535, this));	//端口号范围
-	ui->bt_send->setEnabled(false);
+    ui->bt_send->setEnabled(false);
+    ui->line_server_ip->setEnabled(false);
+    ui->line_client_ip->setEnabled(false);
+    ui->line_client_port->setEnabled(false);
+	ui->line_server_port->setValidator(new QIntValidator(0, 65535, this));	//端口号验证
+    ui->text_recv->setFont(QFont("Helvetica", 15, QFont::Normal));
+    ui->text_send->setFont(QFont("Helvetica", 15, QFont::Normal));
 	ui->text_recv->setReadOnly(true);
 	ui->text_send->installEventFilter(this);
 
@@ -22,6 +24,7 @@ Widget::Widget(QWidget* parent)
 	SetServerIP();
 
 	connect(this->tcp_server, &QTcpServer::newConnection, this, &Widget::Connect);	//连接成功
+    connect(this, &Widget::CtrlEnter, this, &Widget::on_bt_send_clicked);           //自定义信号 发送数据
 }
 
 Widget::~Widget()
@@ -34,7 +37,7 @@ void Widget::closeEvent(QCloseEvent* ev)
 {
 	if(QMessageBox::question(this, "Close", "Close Server?") == QMessageBox::No)
 	{
-		ev->ignore();
+        ev->ignore();
 		return;
 	}
 
@@ -57,8 +60,8 @@ bool Widget::eventFilter(QObject* obj, QEvent* ev)
 			if(e->modifiers() == Qt::ControlModifier && e->key() == Qt::Key_Return &&
 					ui->bt_send->isEnabled())
 			{
-				on_bt_send_clicked();
-				return true;
+				emit CtrlEnter();	//发送自定义信号 调用on_bt_send_clicked槽函数
+                return true;
 			}
 		}
 	}
@@ -95,9 +98,9 @@ void Widget::on_bt_listen_clicked()
 	}
 
 	this->tcp_server->listen(QHostAddress::AnyIPv4, ui->line_server_port->text().toUInt());
-	ui->text_recv->setText("等待客户端连接......");
-	ui->bt_listen->setEnabled(false);
-	ui->line_server_port->setReadOnly(true);
+    ui->text_recv->setText("Wait for client to connect......");
+    ui->line_server_port->setEnabled(false);
+    ui->bt_listen->setEnabled(false);
 }
 
 //连接成功
@@ -107,17 +110,19 @@ void Widget::Connect()
 	this->tcp_socket = this->tcp_server->nextPendingConnection();
 
 	//设置tcp_socket信号与槽函数
-	connect(this->tcp_socket, &QTcpSocket::readyRead, this, &Widget::Receive);	//接收数据
-	void (QTcpSocket::*signal)(QAbstractSocket::SocketError) = &QTcpSocket::error;
-	void (Widget::*slot)(QAbstractSocket::SocketError) = &Widget::Disconnect;
-	connect(this->tcp_socket, signal, this, slot);								//连接出错
+    connect(this->tcp_socket, &QTcpSocket::readyRead, this, &Widget::Receive);          //接收数据
+	connect(this->tcp_socket, &QTcpSocket::disconnected, this, &Widget::Disconnect);	//接收数据
+    void (QTcpSocket::*signal)(QAbstractSocket::SocketError) = &QTcpSocket::error;
+    void (Widget::*slot)(QAbstractSocket::SocketError) = &Widget::Error;
+    connect(this->tcp_socket, signal, this, slot);                                      //连接出错
 
 	//获取客户端信息
 	QString ip = this->tcp_socket->peerAddress().toString();
 	quint16 port = this->tcp_socket->peerPort();
 
 	//显示
-	ui->text_recv->setText("客户端连接成功");
+    ui->text_recv->setTextColor(Qt::green);
+    ui->text_recv->setText("Client connection is successful");
 	ui->line_client_ip->setText(ip);
 	ui->line_client_port->setText(QString::number(port));
 
@@ -125,27 +130,35 @@ void Widget::Connect()
 	ui->bt_send->setEnabled(true);
 }
 
-//客户端主动断开连接
-void Widget::Disconnect(QAbstractSocket::SocketError)
+//连接出错
+void Widget::Error(QAbstractSocket::SocketError)
 {
 	if(this->tcp_socket->error() == QAbstractSocket::RemoteHostClosedError)
-	{
-		this->tcp_socket = nullptr;
-		ui->text_recv->append("客户端断开连接");
-		ui->line_client_ip->setText("");
-		ui->line_client_port->setText("");
-		ui->bt_send->setEnabled(false);
-	}
-	else
-	{
-		ui->text_recv->append(this->tcp_socket->errorString());
-	}
+    {
+        return;
+    }
+
+    ui->text_recv->setTextColor(Qt::red);
+    ui->text_recv->append(this->tcp_socket->errorString());
+    ui->bt_send->setEnabled(false);
+}
+
+//客户端主动断开连接
+void Widget::Disconnect()
+{
+    this->tcp_socket = nullptr;
+    ui->text_recv->setTextColor(Qt::red);
+    ui->text_recv->append("Client disconnected");
+    ui->line_client_ip->setText("");
+    ui->line_client_port->setText("");
+    ui->bt_send->setEnabled(false);
 }
 
 //接收数据
 void Widget::Receive()
 {
 	QByteArray text = this->tcp_socket->readAll();
+	ui->text_recv->setTextColor(Qt::black);
 	ui->text_recv->append(text);
 }
 
@@ -155,10 +168,12 @@ void Widget::on_bt_send_clicked()
 	QString text = ui->text_send->toPlainText();
 	if(text.isEmpty())
 	{
+		QMessageBox::warning(this, "Warning", "Cannot send empty message");
 		return;
 	}
 
 	this->tcp_socket->write(text.toUtf8().data());
+	ui->text_recv->setTextColor(Qt::black);
 	ui->text_recv->append(text);
 	ui->text_send->setText("");
 }
