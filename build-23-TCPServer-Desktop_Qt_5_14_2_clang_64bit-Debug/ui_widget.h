@@ -58,7 +58,8 @@ public:
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QString::fromUtf8("Widget"));
-        Widget->resize(600, 600);
+        Widget->resize(638, 600);
+        Widget->setStyleSheet(QString::fromUtf8("#Widget{background:qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(0, 0, 0, 255), stop:0.05 rgba(14, 8, 73, 255), stop:0.36 rgba(28, 17, 145, 255), stop:0.6 rgba(126, 14, 81, 255), stop:0.75 rgba(234, 11, 11, 255), stop:0.79 rgba(244, 70, 5, 255), stop:0.86 rgba(255, 136, 0, 255), stop:0.935 rgba(239, 236, 55, 255))}"));
         verticalLayout_2 = new QVBoxLayout(Widget);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         widget_3 = new QWidget(Widget);
