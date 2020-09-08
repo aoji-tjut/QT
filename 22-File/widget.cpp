@@ -43,6 +43,10 @@ void Widget::on_bt_read_clicked()
 		QString str = QString("文件名：%1\n文件大小：%2字节\n文件路径：%3\n\n").
 					  arg(info.fileName()).arg(info.size()).arg(info.filePath());
 
+		//QFile默认只读取utf-8编码 对于其他编码需要转换为utf-8再读取
+		//QTextCodec* code = QTextCodec::codecForName("待读取文件的编码格式");
+		//code->toUnicode(读取文件返回的字节数组);	//返回utf-8编码格式
+
 		//一次性读完
 		//QByteArray arr=file.readAll();
 		//ui->textEdit->setText(QString(arr));
