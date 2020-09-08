@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QString>
 #include <QDebug>
+#include <QTextCodec>	//编码格式
 #include <QFile>		//文件
 #include <QFileDialog>	//文件对话框
 #include <QFileInfo>	//文件信息
