@@ -22,6 +22,5 @@ public:
 private:
 	Ui::Widget* ui;
 	QTimer* id;
-	int state;
 };
 #endif // WIDGET_H

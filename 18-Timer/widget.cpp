@@ -15,7 +15,6 @@ Widget::Widget(QWidget* parent)
 	ui->label->setAlignment(Qt::AlignCenter);
 
 	//button
-	this->state = 1;
 	ui->pushButton->setText("暂停");
 	connect(ui->pushButton, &QPushButton::clicked, this, &Widget::ChangeState);
 
@@ -38,18 +37,16 @@ void Widget::Timer()
 
 void Widget::ChangeState()
 {
-	if(this->state)
+	if(this->id->isActive())
 	{
 		this->id->stop();
 		ui->pushButton->setText("继续");
 		ui->pushButton->repaint();	//重绘
-		this->state = 0;
 	}
 	else
 	{
 		this->id->start(500);
 		ui->pushButton->setText("暂停");
 		ui->pushButton->repaint();	//重绘
-		this->state = 1;
 	}
 }
