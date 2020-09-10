@@ -180,24 +180,18 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="bt_close">
+       <widget class="QPushButton" name="bt_file">
         <property name="text">
-         <string>Close</string>
+         <string>File</string>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QProgressBar" name="progress_bar">
+        <property name="value">
+         <number>24</number>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
      </layout>
     </widget>
