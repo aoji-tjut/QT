@@ -8,6 +8,7 @@ Widget::Widget(QWidget* parent)
 	ui->setupUi(this);
 
 	setWindowTitle("TCPClient");
+	resize(600, 600);
 	ui->bt_disconnect->setEnabled(false);
     ui->bt_send->setEnabled(false);
     ui->bt_file->setEnabled(false);
@@ -131,6 +132,7 @@ void Widget::on_bt_disconnect_clicked()
     ui->bt_send->setEnabled(false);
     ui->bt_file->setEnabled(false);
     ui->progress_bar->setEnabled(false);
+	ui->progress_bar->setValue(0);
 }
 
 //接收数据
@@ -138,7 +140,6 @@ void Widget::Receive()
 {
     //一次性读完
     QByteArray buf = this->tcp_socket->readAll();
-    ui->text_recv->setTextColor(Qt::black);
 
     //是文件头
     if(buf.startsWith("Send file information"))
