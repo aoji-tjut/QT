@@ -45,18 +45,18 @@ private slots:
 
 private:
 	Ui::Widget* ui;
-	QTcpSocket* tcp_socket;
-    QTimer* id;
+	QTcpSocket* tcp_socket;			//通信套接字
+	QTimer* id;						//定时器
 
-    QFile send_file;
-    qint64 send_file_size;
+	QFile send_file;				//发送的文件对象
+	qint64 send_file_size;			//已发送的文件大小
 
-    QFile recv_file;
-    QString recv_file_name_size;
-    QString recv_file_name;
-    qint64 recv_file_size;
-    qint64 recv_size;
+	QFile recv_file;				//接收的文件对象
+	QString recv_file_name_size;	//接收的文件名+大小
+	QString recv_file_name;			//接收的文件名
+	qint64 recv_file_size;			//接收的文件大小
+	qint64 recv_size;				//已接收的文件大小
 
-    bool file_flag;
+	bool file_flag;					//是否为文件的标记
 };
 #endif // WIDGET_H

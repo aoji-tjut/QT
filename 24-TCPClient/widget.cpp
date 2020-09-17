@@ -238,6 +238,9 @@ void Widget::on_bt_file_clicked()
         return;
     }
 
+	//发送文件时禁止发送文本
+	ui->bt_send->setEnabled(false);
+
     //发送文件信息
 	QString head = QString("Send file information: (name, size) = (%1, %2)").
 				   arg(file_name).arg(this->send_file_size);
@@ -247,6 +250,7 @@ void Widget::on_bt_file_clicked()
         ui->text_recv->setTextColor(Qt::red);
         ui->text_recv->append("Failed to send file information");
         this->send_file.close();
+		ui->bt_send->setEnabled(true);
         return;
     }
     ui->text_recv->setTextColor(Qt::black);
@@ -281,9 +285,11 @@ void Widget::SendFile()
         ui->text_recv->setTextColor(Qt::red);
         ui->text_recv->append("File sending failed");
         this->send_file.close();
+		ui->bt_send->setEnabled(true);
         return;
     }
     this->send_file.close();
     ui->text_recv->setTextColor(Qt::black);
     ui->text_recv->append("File sent successfully");
+	ui->bt_send->setEnabled(true);
 }
