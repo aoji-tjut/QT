@@ -1,5 +1,5 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#ifndef WIDGET1_H
+#define WIDGET1_H
 
 #include <QWidget>
 #include <QString>
@@ -25,4 +25,4 @@ private:
 	Ui::Widget1* ui;
 	QUdpSocket* udp_socket;
 };
-#endif // WIDGET_H
+#endif // WIDGET1_H

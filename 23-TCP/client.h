@@ -1,5 +1,5 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#ifndef CLIENT_H
+#define CLIENT_H
 
 #include <QWidget>
 #include <QString>
@@ -15,36 +15,36 @@
 #include <QTimer>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class Widget; }
+namespace Ui { class Client; }
 QT_END_NAMESPACE
 
-class Widget : public QWidget
+class Client : public QWidget
 {
 	Q_OBJECT
 
 public:
-	Widget(QWidget* parent = nullptr);
-	~Widget();
+	Client(QWidget* parent = nullptr);
+	~Client();
 
-    void SendFile();
+	void SendFile();
 
 protected:
 	void closeEvent(QCloseEvent* ev) override;
 	bool eventFilter(QObject* obj, QEvent* ev) override;
 
 signals:
-    void CtrlEnter();
+	void CtrlEnter();
 
 private slots:
 	void Connect();
 	void Receive();
 	void on_bt_connect_clicked();
-    void on_bt_disconnect_clicked();
+	void on_bt_disconnect_clicked();
 	void on_bt_send_clicked();
-    void on_bt_file_clicked();
+	void on_bt_file_clicked();
 
 private:
-	Ui::Widget* ui;
+	Ui::Client* ui;
 	QTcpSocket* tcp_socket;			//通信套接字
 	QTimer* id;						//定时器
 
@@ -59,4 +59,4 @@ private:
 
 	bool file_flag;					//是否为文件的标记
 };
-#endif // WIDGET_H
+#endif // CLIENT_H
