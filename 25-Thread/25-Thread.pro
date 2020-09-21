@@ -17,9 +17,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
+    thread1.cpp \
+    thread2.cpp \
     widget.cpp
 
 HEADERS += \
+    thread1.h \
+    thread2.h \
     widget.h
 
 FORMS += \
