@@ -12,9 +12,9 @@ void Thread2::Run()
 
 	while(!this->stop)
 	{
-		//每500ms Widget::lcd++
+		//每1000ms Widget::lcd++
 		emit Thread2Signal();
-		QThread::msleep(500);
+		QThread::msleep(1000);
 	}
 }
 
