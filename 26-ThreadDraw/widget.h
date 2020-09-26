@@ -25,13 +25,13 @@ public:
 
 protected:
 	void paintEvent(QPaintEvent*) override;
+	void resizeEvent(QResizeEvent*) override;
 	void closeEvent(QCloseEvent*) override;
 
 private:
 	Ui::Widget* ui;
 	QImage image_line;
 	QImage image_rect;
-
 	Line* line;
 	Rect* rect;
 	QThread* thread_line;

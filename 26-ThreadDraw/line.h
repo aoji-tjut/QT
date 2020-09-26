@@ -16,6 +16,7 @@ public:
 
 	void Run();
 	void DrawLine();
+	void Reset(int, int);
 	void SetStop(bool);
 
 signals:
@@ -25,6 +26,7 @@ private:
 	QPainter painter;
 	QImage image;
 	QPen pen;
+	int width, height;
 	bool stop;
 };
 

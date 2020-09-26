@@ -8,7 +8,7 @@ Widget::Widget(QWidget* parent)
 	ui->setupUi(this);
 
 	setWindowTitle("Thread Draw");
-	setFixedSize(800, 400);
+	resize(800, 400);
 
 	this->line = new Line;
 	this->thread_line = new QThread(this);
@@ -30,6 +30,8 @@ Widget::Widget(QWidget* parent)
 Widget::~Widget()
 {
 	delete ui;
+	delete this->line;
+	delete this->rect;
 }
 
 void Widget::paintEvent(QPaintEvent*)
@@ -37,8 +39,14 @@ void Widget::paintEvent(QPaintEvent*)
 	QPainter painter;
 	painter.begin(this);
 	painter.drawImage(0, 0, this->image_line);
-	painter.drawImage(400, 0, this->image_rect);
+	painter.drawImage(width() / 2, 0, this->image_rect);
 	painter.end();
+}
+
+void Widget::resizeEvent(QResizeEvent*)
+{
+	this->line->Reset(width() / 2, height());
+	this->rect->Reset(width() / 2, height());
 }
 
 void Widget::closeEvent(QCloseEvent*)

@@ -2,8 +2,9 @@
 
 Line::Line(QObject* parent) : QObject(parent)
 {
-
-	this->image = QImage(400, 400, QImage::Format_ARGB32);
+	this->width = 400;
+	this->height = 400;
+	this->image = QImage(this->width, this->height, QImage::Format_ARGB32);
 	this->pen = QPen();
 	this->pen.setWidth(3);
 	this->stop = false;
@@ -12,7 +13,6 @@ Line::Line(QObject* parent) : QObject(parent)
 void Line::Run()
 {
 	qsrand(time(nullptr));
-
 	while(!this->stop)
 	{
 		DrawLine();
@@ -23,13 +23,19 @@ void Line::Run()
 void Line::DrawLine()
 {
 	this->pen.setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256));
-
 	this->painter.begin(&this->image);
 	this->painter.setPen(this->pen);
-	this->painter.drawLine(qrand() % 400, qrand() % 400, qrand() % 400, qrand() % 400);
+	this->painter.drawLine(qrand() % this->width, qrand() % this->height,
+						   qrand() % this->width, qrand() % this->height);
 	this->painter.end();
-
 	emit Update(this->image);
+}
+
+void Line::Reset(int width, int height)
+{
+	this->width = width;
+	this->height = height;
+	this->image = QImage(this->width, this->height, QImage::Format_ARGB32);
 }
 
 void Line::SetStop(bool flag)

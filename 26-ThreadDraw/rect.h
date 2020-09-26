@@ -16,6 +16,7 @@ public:
 
 	void Run();
 	void DrawRect();
+	void Reset(int, int);
 	void SetStop(bool);
 
 signals:
@@ -25,6 +26,7 @@ private:
 	QPainter painter;
 	QImage image;
 	QBrush brush;
+	int width, height;
 	bool stop;
 };
 
