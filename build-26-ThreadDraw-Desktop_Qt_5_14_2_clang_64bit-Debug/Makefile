@@ -245,6 +245,7 @@ DIST          = ../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/spec_pre.prf 
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/spec_post.prf \
+		../26-ThreadDraw/.qmake.stash \
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/toolchain.prf \
@@ -481,6 +482,7 @@ Makefile: ../26-ThreadDraw/26-ThreadDraw.pro ../../../Qt5.14.2/5.14.2/clang_64/m
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/toolchain.prf \
@@ -694,6 +696,7 @@ Makefile: ../26-ThreadDraw/26-ThreadDraw.pro ../../../Qt5.14.2/5.14.2/clang_64/m
 ../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/qt_config.prf:
 ../../../Qt5.14.2/5.14.2/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/mac/sdk.prf:
 ../../../Qt5.14.2/5.14.2/clang_64/mkspecs/features/toolchain.prf:
@@ -768,6 +771,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r 26-ThreadDraw.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
